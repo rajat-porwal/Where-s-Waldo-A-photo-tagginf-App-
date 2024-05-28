@@ -12,9 +12,9 @@ export default class Game {
       this.gameName = name;
       this.image = image;
       this.goalNames = {
-        ggoalOne: { name: firstName, display: firstDisplay},
+        goalOne: { name: firstName, display: firstDisplay},
         goalTwo: { name: secondName, display: secondDisplay},
-        goalThree: { name: thirdName, display: thirdDisplay},,
+        goalThree: { name: thirdName, display: thirdDisplay},
       }
     }
   }
