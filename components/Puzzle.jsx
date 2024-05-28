@@ -39,3 +39,40 @@ const CharacterSelectionModal = (props) => {
     </div>
   )
 };
+
+// Thanks to PaunescuDragos-99 / waldo-game-frontend
+const Puzzle = () => {
+  const [showModal, setShowModal] = useState(false);
+
+  const [imageLoc, setImageLoc] = useState([0, 0]);
+  const [pageLoc, setPageLoc] = useState([0, 0]);
+  const [windowLoc, setWindowLoc] = useState([0, 0]);
+
+  const handleClick = (e) => {
+    const elem = e.currentTarget;
+    const { top, left } = elem.getBoundingClientRect();
+    const imageX = e.pageX - left - window.scrollX;
+    const imageY = e.pageY - top - window.scrollY;
+    const pageX = e.pageX;
+    const pageY = e.pageY;
+    const windX = e.clientX;
+    const windY = e.clientY;
+
+    setWindowLoc([windX, windY]);
+    setImageLoc([Math.floor(imageX), Math.floor(imageY)]);
+    setPageLoc([pageX, pageY]);
+
+    setShowModal(!showModal);
+  };
+
+  const modalOff = () => {setShowModal(false)};
+
+  return(
+    <>
+      <CharacterSelectionModal show_modal={showModal} page_loc={pageLoc} image_loc={imageLoc} window_loc={windowLoc} closeModal={modalOff}/>
+      <img className="puzzle" onClick={handleClick} src={pic} />
+    </>
+  )
+}
+
+export default Puzzle;
