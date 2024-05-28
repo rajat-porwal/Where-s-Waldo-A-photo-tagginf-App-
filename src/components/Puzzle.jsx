@@ -39,12 +39,21 @@ const CharacterSelectionModal = (props) => {
   const goalNames = {...props.goal_names};
 
   const sendMe = {
-    nameOne: goalNames.goalOne,
-    nameTwo: goalNames.goalTwo,
-    nameThree: goalNames.goalThree,
-    sendOne: function() { console.log(JSON.stringify({ name: sendMe.nameOne, loc: [imageX, imageY]})) },
-    sendTwo: function() { console.log(JSON.stringify({ name: sendMe.nameTwo, loc: [imageX, imageY]})) },
-    sendThree: function() { console.log(JSON.stringify({ name: sendMe.nameThree, loc: [imageX, imageY]})) },
+    nameOne: goalNames.goalOne.name,
+    nameTwo: goalNames.goalTwo.name,
+    nameThree: goalNames.goalThree.name,
+    sendOne: function() {
+      console.log(JSON.stringify({ name: sendMe.nameOne, loc: [imageX, imageY]}));
+      closeModal();
+    },
+    sendTwo: function() {
+      console.log(JSON.stringify({ name: sendMe.nameTwo, loc: [imageX, imageY]}));
+      closeModal();
+    },
+    sendThree: function() {
+      console.log(JSON.stringify({ name: sendMe.nameThree, loc: [imageX, imageY]}));
+      closeModal();
+    },
   }
 
 
@@ -55,9 +64,9 @@ const CharacterSelectionModal = (props) => {
       </div>
       <div className="character-selection-modal" id="imageModal" style={{display: hide, top: pageY - modalUp, left: pageX + 20}} ref={elementRef}>
         <span className="modal-x-button" onClick={closeModal}>&times;</span>
-        <div><p><span onClick={sendMe.sendOne}>Image 1</span></p></div>
-        <div><p><span onClick={sendMe.sendTwo}>Image 2</span></p></div>
-        <div><p><span onClick={sendMe.sendThree}>Image 3</span></p></div>
+        <div><p><span onClick={sendMe.sendOne}>{goalNames.goalOne.display}</span></p></div>
+        <div><p><span onClick={sendMe.sendTwo}>{goalNames.goalTwo.display}</span></p></div>
+        <div><p><span onClick={sendMe.sendThree}>{goalNames.goalThree.display}</span></p></div>
       </div>
     </div>
   )
@@ -65,7 +74,7 @@ const CharacterSelectionModal = (props) => {
 
 // Thanks to PaunescuDragos-99 / waldo-game-frontend
 // I didnt' have to knowledge to gather coordinates
-const Puzzle = () => {
+const Puzzle = (props) => {
   const [showModal, setShowModal] = useState(false);
 
   const [imageLoc, setImageLoc] = useState([0, 0]);
@@ -96,8 +105,15 @@ const Puzzle = () => {
 
   return(
     <>
-      <CharacterSelectionModal show_modal={showModal} page_loc={pageLoc} image_loc={imageLoc} window_loc={windowLoc} closeModal={modalOff}/>
-      <img className="puzzle" onClick={handleClick} src={pic} />
+      <CharacterSelectionModal
+        show_modal={showModal}
+        page_loc={pageLoc}
+        image_loc={imageLoc}
+        window_loc={windowLoc}
+        closeModal={modalOff}
+        goal_names={props.goalNames}
+      />
+      <img className="puzzle" onClick={handleClick} src={props.pic} />
     </>
   )
 }

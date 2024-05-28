@@ -6,35 +6,12 @@ import Puzzle from './components/Puzzle';
 import puzzle1 from './assets/pic1.jpg';
 import puzzle2 from './assets/pic2.jpg';
 import testPuzzle from './assets/react.svg';
+import Game from './gameConstructor';
 
 const gameData = [
-  {
-    image: puzzle1,
-    gameName: "woman",
-    goalNames: {
-      goalOne: "eyes",
-      goalTwo: "elbows",
-      goalThree: "hair",
-    },
-  },
-  {
-    image: puzzle2,
-    gameName: "text",
-    goalNames: {
-      goalOne: "tildea",
-      goalTwo: "uppercaseT",
-      goalThree: "sharpS",
-    }
-  },
-  {
-    image: testPuzzle,
-    gameName: "testicle",
-    goalNames:{
-      goalOne: "testicle",
-      goalTwo: "boobies",
-      goalThree: "ass",
-    }
-  }
+  new Game("nicola", puzzle1, "eyes", "eyes", "elbows", "elbows", "hair", "hair"),
+  new Game("text", puzzle2, "tildea", "ã", "uppercaseT", "T", "sharpS", "ß"),
+  new Game("testicle", testPuzzle, "testicle", "testicle", "boobies", "boobies", "ass", "ass"),
 ];
 
 const listOfLinks = gameData.map( elem => {
@@ -51,14 +28,12 @@ function App() {
           return(
             <Puzzle pic={elem.image} goalNames={elem.goalNames} key={index} />
           );
+          return( <Puzzle pic={elem.image} goalNames={elem.goalNames} key={index} /> );
         }
       })}
-      {/* <Puzzle pic={gameData[0].image} goalNames={gameData[0].goalNames} /> */}
-      {/* <Puzzle pic={gameData[1].image} goalNames={gameData[1].goalNames} /> */}
-      {/* <Puzzle pic={gameData[2].image} goalNames={gameData[2].goalNames} /> */}
       <Bottom />
     </>
   )
 }
 
-export default App
+export default App;
